@@ -1,9 +1,8 @@
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
-import { incremented, decremented, incrementByAmount } from '@/store/index';
+import { incremented, decremented, incrementByAmount, asyncTestAction } from '@/store/index';
 import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
-
 const Test = () => {
   const [title] = useState('Test');
   const value = useAppSelector(state => state.indexStore.value);
@@ -20,7 +19,7 @@ const Test = () => {
 
   const hanldeClickAddNum = useCallback(() => {
     dispatch(incrementByAmount(5));
-    nav('/home');
+    dispatch(asyncTestAction());
   }, []);
 
   return (
@@ -31,7 +30,8 @@ const Test = () => {
       <Button onClick={handleClickAdd}>Add</Button>
       <Button onClick={handleClickMinus}>Minus</Button>
       <Button onClick={hanldeClickAddNum}>Add5</Button>
+      <Button onClick={() => nav('/home')}>GotoHome</Button>
     </div>
   );
 };
-export default Test;
+export default React.memo(Test);
