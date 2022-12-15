@@ -26,9 +26,18 @@ module.exports = {
     'react'
   ],
   rules: {
+    "no-restricted-imports": "off",
+    "@typescript-eslint/no-restricted-imports": [
+      "warn",
+      {
+        "name": "react-redux",
+        "importNames": ["useSelector", "useDispatch"],
+        "message": "Use typed hooks `useAppDispatch` and `useAppSelector` instead."
+      }
+    ],
   },
   ignorePatterns: [
     '.eslintrc.cjs',
     'vite.config.ts'
-  ]
+  ],
 }
