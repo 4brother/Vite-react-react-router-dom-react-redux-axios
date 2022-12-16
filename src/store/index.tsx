@@ -1,9 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getCookies } from '@/api/index';
 declare type IndexStoreState = {
   value: number,
   obj: {
     value: number,
-  }
+  },
+  cookies: string | void,
 };
 
 const initialState: IndexStoreState = {
@@ -11,15 +13,17 @@ const initialState: IndexStoreState = {
   obj: {
     value: 1,
   },
+  cookies: void 0,
 };
 export const asyncTestAction = createAsyncThunk(
   'index/value',
   async (_, { getState }) => {
     console.log(getState());
-    return new Promise((resolve: any, reject: any) => {
-      // resolve(123);
-      reject(6666);
-    });
+    // return new Promise((resolve: any, reject: any) => {
+    //   // resolve(123);
+    //   reject(6666);
+    // });
+    return await getCookies();
   },
 );
 
@@ -47,14 +51,14 @@ const indexStore = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(asyncTestAction.fulfilled, (state, action: PayloadAction<any>) => {
-      state.value = action.payload;
+      state.cookies = action.payload.cookies;
       console.log(state);
       console.log(action);
     })
-      .addCase(asyncTestAction.pending, (state, action) => {
+      .addCase(asyncTestAction.pending, () => {
         console.log('pedding');
       })
-      .addCase(asyncTestAction.rejected, (state, action) => {
+      .addCase(asyncTestAction.rejected, () => {
         console.log('reject');
       });
   },

@@ -7,6 +7,7 @@ const Test = () => {
   const [title] = useState('Test');
   const value = useAppSelector(state => state.indexStore.value);
   const objValue = useAppSelector(state => state.indexStore.obj.value);
+  const cookies = useAppSelector(state => state.indexStore.cookies);
   const dispatch = useAppDispatch();
   const nav = useNavigate();
   const handleClickAdd = useCallback(() => {
@@ -19,6 +20,9 @@ const Test = () => {
 
   const hanldeClickAddNum = useCallback(() => {
     dispatch(incrementByAmount(5));
+  }, []);
+
+  const handleClickGetCookies = useCallback(() => {
     dispatch(asyncTestAction());
   }, []);
 
@@ -31,6 +35,8 @@ const Test = () => {
       <Button onClick={handleClickMinus}>Minus</Button>
       <Button onClick={hanldeClickAddNum}>Add5</Button>
       <Button onClick={() => nav('/home')}>GotoHome</Button>
+      <Button onClick={handleClickGetCookies}>GetCookies</Button>
+      <div>{ cookies || '' }</div>
     </div>
   );
 };
