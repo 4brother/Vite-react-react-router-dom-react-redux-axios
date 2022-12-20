@@ -4,7 +4,7 @@ const Api = {
   cookie: '',
 };
 
-export const getCookies = () => request({
+export const getCookies = () => request<string>({
   url: Api.cookie,
   method: 'GET',
 });

@@ -1,6 +1,10 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { notification } from 'antd';
-const instance = axios.create({
+export declare interface Instance extends AxiosInstance {
+  <T = any, D = any>(config: AxiosRequestConfig<D>): Promise<{ result: T }>;
+  <T = any, D = any>(url: string, config?: AxiosRequestConfig<D>): Promise<{ result: T }>;
+}
+const instance: Instance = axios.create({
   baseURL: import.meta.env.VITE_APP_API_BASE_URL,
   timeout: 60000,
 });
